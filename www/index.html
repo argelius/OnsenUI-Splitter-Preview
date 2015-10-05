@@ -6,11 +6,7 @@
   <link rel="stylesheet" href="css/onsenui.css">
   <link rel="stylesheet" href="css/onsen-css-components.css">
 
-  <script src="js/angular/angular.js"></script>
-  <script src="js/onsenui.js"></script>
-  <script>
-    angular.module('myApp', [ 'onsen.directives']);
-  </script>
+  <script src="js/ons-core.js"></script>
 
   <script>
     window.addEventListener('load', function() {
@@ -21,22 +17,6 @@
     function toggleRight() {
       var splitter = document.querySelector('ons-splitter');
       splitter.toggleRight();
-    }
-
-    function fixRight() {
-      var right = document.querySelector('ons-splitter-side[side="right"]');
-      var btn = document.getElementById('toggle-btn');
-
-      if (right.hasAttribute('swipeable')) {
-        right.removeAttribute('swipeable');
-        right.removeAttribute('collapse');
-        btn.setAttribute('disabled', '');
-      }
-      else {
-        right.setAttribute('swipeable', '');
-        right.setAttribute('collapse', '');
-        btn.removeAttribute('disabled');
-      };
     }
 
     function collapseLeft() {
@@ -59,6 +39,10 @@
     ons-splitter-side[side="right"] {
       border-left: 1px solid #ddd;
     }
+
+    .page__content > p {
+      margin-left: 16px;
+    }
   </style>
 </head>
 
@@ -69,7 +53,6 @@
         <ons-toolbar>
           <div class="center">ons-splitter-side left</div>
         </ons-toolbar>
-
       </ons-page>
     </ons-splitter-side>
 
@@ -82,11 +65,7 @@
         <p style="text-align: left">
           <ons-button id="toggle-btn" onclick="toggleRight()">toggle right menu</ons-button>
         </p>
-        <br>
-        <p style="text-align: left">
-          <ons-button onclick="fixRight()">set right menu fixed</ons-button>
-        </p>
-        <br>
+
         <p style="text-align: left">
           <ons-button onclick="collapseLeft()">collapse portrait/landscape left view</ons-button>
         </p>
