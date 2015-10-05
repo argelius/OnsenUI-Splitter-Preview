@@ -10,34 +10,30 @@
 
   <script>
     window.addEventListener('load', function() {
-      var right = document.querySelector('ons-splitter-side[side="right"]');
-      right.open();
+      var splitter = document.querySelector('ons-splitter'),
+        button = document.querySelector('ons-button');
+
+      window.toggleMenu = function() {
+        splitter.toggleLeft();
+      };
+
+      setDisabled = function() {
+        if (ons.orientation.isLandscape()) {
+          button.setAttribute('disabled', '');
+        }
+        else {
+          button.removeAttribute('disabled');
+        }
+      };
+
+      ons.orientation.on('change', setDisabled);
+      setDisabled();
     });
-
-    function toggleRight() {
-      var splitter = document.querySelector('ons-splitter');
-      splitter.toggleRight();
-    }
-
-    function collapseLeft() {
-      var left = document.querySelector('ons-splitter-side[side="left"]');
-      if (left.getAttribute('collapse') === 'landscape') {
-        left.setAttribute('collapse', 'portrait');
-      }
-      else {
-        left.setAttribute('collapse', 'landscape');
-      }
-    }
-
   </script>
 
   <style>
     ons-splitter-side[side="left"] {
       border-right: 1px solid #ddd;
-    }
-
-    ons-splitter-side[side="right"] {
-      border-left: 1px solid #ddd;
     }
 
     .page__content > p {
@@ -48,10 +44,10 @@
 
 <body>
   <ons-splitter>
-    <ons-splitter-side side="left" collapse="portrait" width="200px">
+    <ons-splitter-side side="left" swipeable collapse="portrait" width="200px">
       <ons-page>
         <ons-toolbar>
-          <div class="center">ons-splitter-side left</div>
+          <div class="center">ons-splitter-side</div>
         </ons-toolbar>
       </ons-page>
     </ons-splitter-side>
@@ -63,26 +59,14 @@
         </ons-toolbar>
 
         <p style="text-align: left">
-          <ons-button id="toggle-btn" onclick="toggleRight()">toggle right menu</ons-button>
+          The menu on the left will automatically collapse and transform into a draggable menu when the device is in "portrait" mode. In "landscape" mode it will display as a column.
         </p>
 
-        <p style="text-align: left">
-          <ons-button onclick="collapseLeft()">collapse portrait/landscape left view</ons-button>
+        <p style="text-align: center;">
+          <ons-button onclick="toggleMenu()">Open menu</ons-button>
         </p>
       </ons-page>
     </ons-splitter-content>
-
-    <ons-splitter-side side="right" width="250px" collapse="landscape" swipeable>
-      <ons-page>
-        <ons-toolbar>
-          <div class="left">
-            <ons-toolbar-button onclick="toggleRight()">Close</ons-toolbar-button>
-          </div>
-          <div class="center">ons-splitter-side right</div>
-        </ons-toolbar>
-
-      </ons-page>
-    </ons-splitter-side>
   </ons-splitter>
 </body>
 </html>
